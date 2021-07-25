@@ -1,8 +1,14 @@
 # Broom - The Loose File Sweeper
 
+Broom is a plugin for both [Mod Organizer](https://github.com/ModOrganizer2/modorganizer) and [Vortex](https://www.nexusmods.com/site/mods/1) that allows you to hide or delete mod files using a configuration kept in your modlist.
+
+MO2
+
 ![image](https://user-images.githubusercontent.com/981184/124805837-aef5cc80-df64-11eb-8a75-b15c5386f80b.png)
 
-Broom is a [Mod Organizer](https://github.com/ModOrganizer2/modorganizer) plugin that allows you to hide or delete files based on a config file in your mod list.
+Vortex
+
+![image](https://user-images.githubusercontent.com/981184/126915288-9e04cec9-5e84-4035-85e3-ebb993d50da0.png)
 
 ## Description
 

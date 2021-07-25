@@ -204,6 +204,8 @@ class BroomDialog extends ComponentEx<IProps, IComponentState> {
     }
 
     private findButtonHandler = async () => {
+        this.props.onClearMessages();
+
         var searchMsg = "<b style='color:lightblue'>Searching for rule configuration files...</b>"
         this.props.onAddMessages([searchMsg, "</br>"])
 

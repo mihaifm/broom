@@ -20,7 +20,8 @@ const sessionReducer: types.IReducerSpec = {
     },
     defaults: {
         open: false,
-        messages: []
+        messages: [],
+        matchedFiles: []
     }
 }
 
