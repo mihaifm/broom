@@ -1,0 +1,4 @@
+release
+vortex/deploy.cmd
+vortex/node_modules
+vortex/dist

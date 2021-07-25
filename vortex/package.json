@@ -1,0 +1,40 @@
+{
+    "name": "broom",
+    "version": "1.0.0",
+    "description": "Broom - The Loose File Sweeper",
+    "main": "./dist/index.js",
+    "repository": "",
+    "scripts": {
+        "webpack": "node ./node_modules/webpack/bin/webpack --config webpack.config.js --progress --color",
+        "bundle7z": "7z a -t7z broom.7z .\\dist\\index.js .\\dist\\info.json",
+        "build": "npm run webpack && extractInfo"
+    },
+    "author": "mihaifm",
+    "license": "MIT",
+    "babel": {
+        "presets": [
+            "es2015"
+        ]
+    },
+    "devDependencies": {
+        "7z-bin": "Nexus-Mods/7z-bin",
+        "@types/i18next": "^13.0.0",
+        "@types/node": "^15.12.4",
+        "@types/react": "^17.0.11",
+        "@types/redux": "^3.6.0",
+        "@types/redux-thunk": "^2.1.0",
+        "bluebird": "^3.5.5",
+        "electron": "11.3.0",
+        "i18next": "^17.0.4",
+        "react": "^17.0.2",
+        "react-bootstrap": "^0.32.4",
+        "ts-loader": "^6.0.4",
+        "typescript": "^3.5.2",
+        "vortex-api": "Nexus-Mods/vortex-api",
+        "webpack": "^4.0.0",
+        "redux-act": "^1.8.0",
+        "react-redux": "^7.2.4",
+        "react-i18next": "^11.11.3",
+        "webpack-cli": "^4.7.2"
+    }
+}
