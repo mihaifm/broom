@@ -41,7 +41,7 @@ Before using Broom, you need to create a configuration file telling it what file
 
 A sample file has been provided as an optional download. This can be installed as a mod directly with MO2/Vortex.
 
-To make you own, simply create a file having the *.broom* extension, archive it and drag the archive into MO2/Vortex (for MO2 you might want to put the file inside a recognized folder e.g. scripts, otherwise MO2 might complain about Data directory being invalid)
+To make you own, simply create a file having the *.broom* extension, archive it and drag the archive into MO2/Vortex (for MO2 you might want to put the .broom file inside a recognized folder e.g. scripts, otherwise MO2 might complain about Data directory being invalid)
 
 The configuration file should contain a list of [glob patterns](https://en.wikipedia.org/wiki/Glob_%28programming%29) matching the files you want to get rid of:
 
@@ -68,7 +68,7 @@ All the matching files will be renamed with the .mohidden extension, preventing 
 
 #### Vortex
 
-To launch broom, go to Modlist and press the Broom icon in the toolbar.
+To launch Broom, go to MODS and press the Broom icon in the toolbar.
 
 ![image](https://user-images.githubusercontent.com/981184/127040342-8d8101e6-2baa-4212-b077-63ffb3a89e85.png)
 
