@@ -1,6 +1,6 @@
 # Broom - The Loose File Sweeper
 
-Broom is a plugin for both [Mod Organizer](https://github.com/ModOrganizer2/modorganizer) and [Vortex](https://www.nexusmods.com/site/mods/1) that allows you to hide or delete mod files using a configuration kept in your modlist.
+Broom is a plugin for both [Mod Organizer](https://github.com/ModOrganizer2/modorganizer) and [Vortex](https://www.nexusmods.com/site/mods/1) that allows you to hide or delete mod files based on a configuration kept in your modlist.
 
 MO2
 
@@ -12,47 +12,38 @@ Vortex
 
 ## Description
 
-Let's say you've just installed a texture pack mod but don't like one of the textures included with it. You manually open the mod folder and delete the texture.
-If you're a pro you might rename it with the .mohidden extension.
-
-All is good until the texture pack gets an update, which you promptly install. The texture that you had deleted a while ago is now back. Did you remember the name of the texture you had deleted?
-Probably not.
-
-Enter this plugin.
-
-With Broom you can keep track of files that you want to hide/delete using configuration files in you mod list. When you run Broom, it scans your mod list for these configuration files and hides (or deletes) the files for you.
+Broom allows you to automatically hide or delete files from various mods in your list. To achieve this, Broom reads a configuration file that is also installed as a mod in your list.
+In the config file you can specify a set of rules (file names, patterns etc.) that Broom then uses to hide/delete mod files.
 
 The idea is simple but it allows you to:
 
-- resolve mod conflicts in a more automated way, allowing you to move the mods in the list independent of each other
-- combine mods by hiding conflicting files and sharing the config without having to share the original assets or any detailed manual instructions
-- keep track of file operations that had to be done manually before
-- remove various files from a mod and share these changes without the need to share the original mod
-- save some disk space but cleaning up unnecessary files, while keeping track of the changes at the same time
+    - resolve mod conflicts in a more automated way, allowing you to move the mods in the list independent of each other
+    - combine mods by hiding conflicting files and sharing the config without having to share the original assets
+    - keep track of file operations that had to be done manually before
+    - remove various files from a mod and share these changes without the need to share the original mod
+    - save some disk space but cleaning up unnecessary files, while keeping track of the changes at the same time
+
+Consider the following scenario: you've just installed a retexture mod but don't like one of the textures included with it. You manually open the mod folder and delete the texture. Everything is fine until the texture mod gets an update, which you promptly install. The texture you had deleted a while ago is now back alive, and you probably don't remember its name or location.
+
+This is where this plugin can be useful.
 
 ## Installation
 
-Download the Broom.py file and copy it to the plugin folder of your MO2 installation (e.g. C:\MO2\plugins)
+MO2:
+Download the MO2 version, unzip, copy Broom.py into the plugin folder of your MO2 installation (e.g. C:\MO2\plugins)
 
-## Usage
-
-To launch Broom, go to Tools -> Tool Plugins -> Broom
-
-![image](https://user-images.githubusercontent.com/981184/124807511-7eaf2d80-df66-11eb-8543-8bc704bc0e0c.png)
-
-At this stage, clicking the Find Files button would display "No rules found" because we don't have a configuration yet telling it which files to hide.
-
-So let's resolve that. Install the Sample Broom Rules file as a mod in Mod Organizer. You can use this sample as a starting point for creating your config files.
-
-After Re-launching Broom and pressing the Find Files button, the rules will be detected and you will get a list of files that match the rules.
-
-You can now review the files and press the Hide Files button to complete the operation. All the files in the list will be renamed with the .mohidden extension, preventing them to be loaded by the game.
+Vortex:
+Download the Vortex version, unzip, copy the 3 files into %appdata%\Vortex\plugins\Broom
 
 ## Configuration Files
 
-Broom searches your modlist for configuration files having the .broom extension.
+Before using Broom, you need to create a configuration file telling it what files it should hide/delete.
 
-The configuration files should contain a list of [glob patterns](https://en.wikipedia.org/wiki/Glob_%28programming%29).
+A sample file has been provided as an optional download. This can be installed as a mod directly with MO2/Vortex.
+
+To make you own, simply create a file having the *.broom* extension, archive it and drag the archive into MO2/Vortex (for MO2 you might want to put the file inside a recognized folder e.g. scripts, otherwise MO2 might complain about Data directory being invalid)
+
+The configuration file should contain a list of [glob patterns](https://en.wikipedia.org/wiki/Glob_%28programming%29) matching the files you want to get rid of:
 
 Example:
 
@@ -61,14 +52,35 @@ Example:
 
 The first rule matches all files containing riftenplazabrick01 (like riftenplazabrick01.dds and riftenplazabrick01_n.dds) while the second one matches all files with the png extension.
 
-A sample file has been provided as an optional download. This should be installed as a mod in MO2. 
-The .broom files can be placed under any folder hierarchy but MO2 might complain about Data directory being invalid. The sample file has been placed under a folder recognized by MO2 (scripts/source)
+You can of course have multiple config files and enable/disable them in you modlist as you wish.
+
+## Usage
+
+#### MO2
+
+To launch Broom, go to Tools -> Tool Plugins -> Broom
+
+![image](https://user-images.githubusercontent.com/981184/124807511-7eaf2d80-df66-11eb-8543-8bc704bc0e0c.png)
+
+Press the Find Files button and wait for it to scan your modlist. Review the matching files and press the Hide Files button to complete the operation.
+All the matching files will be renamed with the .mohidden extension, preventing them to be loaded by the game.
+
+#### Vortex
+
+To launch broom, go to Modlist and press the Broom icon in the toolbar.
+
+![image](https://user-images.githubusercontent.com/981184/127040342-8d8101e6-2baa-4212-b077-63ffb3a89e85.png)
+
+Press the Find Files button and wait for it to scan your modlist. Review the matching files and press the Hide Files button to complete the operation.
+All the matching files will be renamed with the .vohidden extension, preventing them to be loaded by the game.
 
 ## Settings
 
-To access plugin settings, go to Tools -> Settings -> Plugins -> Broom
+MO2: 
+Tools -> Settings -> Plugins -> Broom
 
-![image](https://user-images.githubusercontent.com/981184/124813800-f3d23100-df6d-11eb-8157-51279ab150a6.png)
+Vortex:
+Settings -> Interface -> Broom
 
 ### Un-hiding files
 
