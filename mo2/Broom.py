@@ -265,6 +265,9 @@ class BroomWindow(QDialog):
 
         self.cleanButton.setEnabled(False)
 
+        if len(self.__matchedFiles):
+            self.__organizer.refresh(True)
+
     def fileErrorSignalHandler(self, msg):
         self.textarea.appendPlainText(msg)
         self.cleanButton.setEnabled(False)
