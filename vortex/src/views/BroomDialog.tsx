@@ -173,7 +173,7 @@ class BroomDialog extends ComponentEx<IProps, IComponentState> {
             }
         }
 
-        var globalRulesList = globalRules.split(/\r?\n/).map(x => x.trim()).filter(x => x.length > 0)
+        var globalRulesList = globalRules.split(/\r?\n/).map(x => x.trim()).filter(x => x.length > 0).filter(x => !x.startsWith("#"))
 
         if (this.props.unhideOption && !this.props.deleteOption)
             for (var i = 0; i < globalRulesList.length; i++)

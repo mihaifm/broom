@@ -107,11 +107,11 @@ class BroomSearchThread(QThread):
                 with open(broomFilePath) as broomFile:
                     globalRules += broomFile.read() + "\n"
 
-        # remove trailing spaces and blank lines
+        # remove trailing spaces, blank and commented lines
         globalRules = "\n".join(
             filter(
                 lambda x: len(x) > 0,
-                map(lambda x: x.strip(), globalRules.splitlines()),
+                map(lambda x: x.strip(), list(filter(lambda x: not x.startswith("#"), globalRules.splitlines()))),
             )
         )
 
