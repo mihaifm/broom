@@ -18,6 +18,23 @@
       "PluginPath": [ "Broom.py" ],
       "LocalePath": [],
       "DataPath": []
+    },
+    {
+      "Version": "1.1.0",
+      "Released": "2022-04-02",
+      "MinSupport": "2.4.2",
+      "MaxSupport": "",
+      "MinWorking": "",
+      "MaxWorking": "",
+      "ReleaseNotes": [
+        "New release, includes a few updates and fixes"
+      ],
+      "DownloadUrl": "https://github.com/mihaifm/broom/releases/download/1.1.0/Broom-MO2.zip",
+      "PluginPath": [
+        "Broom.py"
+      ],
+      "LocalePath": [],
+      "DataPath": []
     }
   ]
 }
