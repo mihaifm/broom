@@ -1,3 +1,5 @@
+# This is a comment. The following is a sample list of rules for Broom
+
 SKSE\**\*.pdb
 .gitignore
 A Quality World Map*\readmes\IcePenguinWorldMapReadme.txt
@@ -8,3 +10,9 @@ Enhanced Blood Textures.txt
 Lucidity Sound FX*\Docs and Screenshots\**\CHANGELOG.txt
 Lucidity Sound FX*\Docs and Screenshots\**\Lucidity Sound FX.png
 Unofficial Skyrim Special Edition Patch Version History.html
+
+# You can negate rules by prefixing them with a "!" character
+# The following rules remove all meshes from the Ingredients mod, but keep the one called ectoplasm.nif
+
+Ingredients\meshes\**\*.nif
+!Ingredients\meshes\**\ectoplasm.nif
