@@ -3,3 +3,4 @@ vortex/deploy.cmd
 vortex/node_modules
 vortex/dist
 workspace.code-workspace
+checklist.txt
