@@ -52,6 +52,18 @@ Example:
 
 The first rule matches all files containing riftenplazabrick01 (like riftenplazabrick01.dds and riftenplazabrick01_n.dds) while the second one matches all files with the png extension.
 
+Additionally, you can negate patterns by prefixing rules with a "!". Any matching files included by previous rules will now be excluded:
+
+    Rugnarok\meshes\**\*.nif
+    !Rugnarok\meshes\**\rug01.nif
+
+The above will match all meshes inside the Rugnarok mod, except rug01.nif
+
+You can also specify comments by using a "#" at the beginning of the line:
+
+    # this is a comment describing my awesome rule
+    SKSE\**\*.pdb
+
 You can of course have multiple config files and enable/disable them in you modlist as you wish.
 
 ## Usage

@@ -14,12 +14,7 @@ from PyQt5.QtCore import (
     pyqtSignal,
 )
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import (
-    QDialog,
-    QHBoxLayout,
-    QPushButton,
-    QVBoxLayout,
-)
+from PyQt5.QtWidgets import QDialog, QHBoxLayout, QPushButton, QVBoxLayout
 from PyQt5.QtWidgets import QPlainTextEdit
 
 
@@ -83,11 +78,15 @@ class BroomSearchThread(QThread):
                 self.findFiles(entry.path, patternList, skipPattern, output)
             else:
                 for pattern in patternList:
-                    if re.search(pattern, entry.path, re.IGNORECASE) and entry.path not in output:
-                        if skipPattern and re.search(skipPattern, entry.path, re.IGNORECASE):
-                            pass
-                        else:
-                            output.append(entry.path)
+                    if not pattern["inclusive"]:
+                        if re.search(pattern["value"], entry.path, re.IGNORECASE) and entry.path in output:
+                            output.remove(entry.path)
+                    else:
+                        if re.search(pattern["value"], entry.path, re.IGNORECASE) and entry.path not in output:
+                            if skipPattern and re.search(skipPattern, entry.path, re.IGNORECASE):
+                                pass
+                            else:
+                                output.append(entry.path)
 
     def run(self):
         modsDir = self.__organizer.modsPath()
@@ -102,17 +101,14 @@ class BroomSearchThread(QThread):
             broomFiles = []
             modPath = modsDirPath.joinpath(mod)
             if modPath.is_dir():
-                self.findFiles(modPath, ["\\.broom(\\.mohidden)?$"], None, broomFiles)
+                self.findFiles(modPath, [{"inclusive": True, "value": "\\.broom(\\.mohidden)?$"}], None, broomFiles)
             for broomFilePath in broomFiles:
                 with open(broomFilePath) as broomFile:
                     globalRules += broomFile.read() + "\n"
 
         # remove trailing spaces, blank and commented lines
         globalRules = "\n".join(
-            filter(
-                lambda x: len(x) > 0,
-                map(lambda x: x.strip(), list(filter(lambda x: not x.startswith("#"), globalRules.splitlines()))),
-            )
+            filter(lambda x: len(x) > 0, filter(lambda x: not x.startswith("#"), map(lambda x: x.strip(), globalRules.splitlines())))
         )
 
         globalRulesList = globalRules.splitlines()
@@ -125,12 +121,19 @@ class BroomSearchThread(QThread):
 
         beginTime = time.time()
 
-        # translate glob rules to regular expressions
-        globalRulesTranslated = list(map(lambda x: fnmatch.translate(x), globalRulesList))
-
         skipPattern = "\\.mohidden$"
         if self.__deleteOption or self.__unhideOption:
             skipPattern = None
+
+        exclusionPattern = "!"
+
+        # translate glob rules to regular expressions
+        globalRulesTranslated = []
+        for rule in globalRulesList:
+            if rule.startswith(exclusionPattern):
+                globalRulesTranslated.append({"inclusive": False, "value": fnmatch.translate(rule[len(exclusionPattern) :])})
+            else:
+                globalRulesTranslated.append({"inclusive": True, "value": fnmatch.translate(rule)})
 
         for mod in modList.allModsByProfilePriority():
             filesToSweep = []

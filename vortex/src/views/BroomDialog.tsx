@@ -1,6 +1,6 @@
 import React from 'react';
-import { ComponentEx, Modal, types, util, fs, selectors } from 'vortex-api';
-import { Button, Grid, Row, Col } from 'react-bootstrap';
+import { ComponentEx, types, util, fs, selectors } from 'vortex-api';
+import { Button, Grid, Row, Col, Modal } from 'react-bootstrap';
 import { setOpenBroomDialog, addBroomMessages, clearBroomMessages, setBroomMatchedFiles } from '../actions/session';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -134,7 +134,7 @@ class BroomDialog extends ComponentEx<IProps, IComponentState> {
         return false
     }
 
-    private findFiles = async (path: string, patternList: RegExp[], skipPattern: RegExp | null, output: string[]) => {
+    private findFiles = async (path: string, patternList: {inclusive: boolean, value: RegExp}[], skipPattern: RegExp | null, output: string[]) => {
         if ((await fs.lstatAsync(path)).isDirectory()) {
             const entries = await fs.readdirAsync(path);
             for (var entry of entries) {
@@ -144,11 +144,17 @@ class BroomDialog extends ComponentEx<IProps, IComponentState> {
                 }
                 else {
                     for (var pattern of patternList) {
-                        if (entryPath.search(pattern) != -1 && output.indexOf(entryPath) == -1) {
-                            if (skipPattern && entryPath.search(skipPattern) != -1) {
-                            }
-                            else {
-                                output.push(entryPath)
+                        if (!pattern.inclusive) {
+                            if (entryPath.search(pattern.value) != -1 && output.indexOf(entryPath) != -1)
+                                output.splice(output.indexOf(entryPath), 1)
+                        }
+                        else {
+                            if (entryPath.search(pattern.value) != -1 && output.indexOf(entryPath) == -1) {
+                                if (skipPattern && entryPath.search(skipPattern) != -1) {
+                                }
+                                else {
+                                    output.push(entryPath)
+                                }
                             }
                         }
                     }
@@ -166,7 +172,7 @@ class BroomDialog extends ComponentEx<IProps, IComponentState> {
             var broomFiles = [];
             var modPath = pathlib.join(stagingPath, mod.installationPath)
 
-            await this.findFiles(modPath, [/\.broom(\.vohidden)?$/i], null, broomFiles)
+            await this.findFiles(modPath, [{inclusive: true, value: /\.broom(\.vohidden)?$/i}], null, broomFiles)
 
             for (var broomFilePath of broomFiles) {
                 globalRules += fs.readFileSync(broomFilePath, 'utf8') + "\n"
@@ -184,11 +190,19 @@ class BroomDialog extends ComponentEx<IProps, IComponentState> {
         if (globalRulesList.length == 0)
             return
 
-        var globalRulesTranslated = globalRulesList.map(x => globrex(x, { flags: 'g' }).regex)
-
         var skipPattern = /\.vohidden$/
         if (this.props.deleteOption || this.props.unhideOption)
             skipPattern = null;
+
+        var exclusionPattern = "!"
+
+        var globalRulesTranslated = []
+        for (let rule of globalRulesList) {
+            if (rule.startsWith(exclusionPattern))
+                globalRulesTranslated.push({ inclusive: false, value: globrex(rule.slice(exclusionPattern.length), { flags: 'gi' }).regex })
+            else
+                globalRulesTranslated.push({ inclusive: true, value: globrex(rule, { flags: 'gi' }).regex })
+        }
 
         for (let mod of enabledMods) {
             var filesToSweep = []
