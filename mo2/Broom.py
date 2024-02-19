@@ -6,17 +6,28 @@ import time
 import os
 import re
 
-
-from PyQt5.QtCore import (
-    QCoreApplication,
-    QThread,
-    Qt,
-    pyqtSignal,
-)
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QDialog, QHBoxLayout, QPushButton, QVBoxLayout
-from PyQt5.QtWidgets import QPlainTextEdit
-
+try:
+    from PyQt5.QtCore import (
+        QCoreApplication,
+        QThread,
+        Qt,
+        pyqtSignal,
+    )
+    from PyQt5.QtGui import QIcon
+    from PyQt5.QtWidgets import QDialog, QHBoxLayout, QPushButton, QVBoxLayout
+    from PyQt5.QtWidgets import QPlainTextEdit
+    windowFlags = Qt.WindowSystemMenuHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint
+except:
+    from PyQt6.QtCore import (
+        QCoreApplication,
+        QThread,
+        Qt,
+        pyqtSignal,
+    )
+    from PyQt6.QtGui import QIcon
+    from PyQt6.QtWidgets import QDialog, QHBoxLayout, QPushButton, QVBoxLayout
+    from PyQt6.QtWidgets import QPlainTextEdit
+    windowFlags = Qt.WindowType.WindowSystemMenuHint | Qt.WindowType.WindowTitleHint | Qt.WindowType.WindowCloseButtonHint
 
 class BroomFileThread(QThread):
     fileSignal = pyqtSignal()
@@ -150,7 +161,7 @@ class BroomSearchThread(QThread):
 
 class BroomWindow(QDialog):
     def __init__(self, parent, organizer, name):
-        QDialog.__init__(self, parent, Qt.WindowSystemMenuHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint)
+        QDialog.__init__(self, parent, windowFlags)
 
         self.__organizer = organizer
         self.__name = name
@@ -305,7 +316,7 @@ class BroomTool(mobase.IPluginTool):
         return self.__tr("Hide or delete loose files based on a configuration in your mod list")
 
     def version(self):
-        return mobase.VersionInfo(1, 0, 0, 0)
+        return mobase.VersionInfo(1, 1, 1, 0)
 
     def requirements(self):
         return []

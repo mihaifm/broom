@@ -13,9 +13,13 @@
       "MaxSupport": "2.4.4",
       "MinWorking": "",
       "MaxWorking": "",
-      "ReleaseNotes": [ "First release" ],
+      "ReleaseNotes": [
+        "First release"
+      ],
       "DownloadUrl": "https://github.com/mihaifm/broom/releases/download/1.0.0/Broom-MO2.zip",
-      "PluginPath": [ "Broom.py" ],
+      "PluginPath": [
+        "Broom.py"
+      ],
       "LocalePath": [],
       "DataPath": []
     },
@@ -30,6 +34,23 @@
         "New release, includes a few updates and fixes"
       ],
       "DownloadUrl": "https://github.com/mihaifm/broom/releases/download/1.1.0/Broom-MO2.zip",
+      "PluginPath": [
+        "Broom.py"
+      ],
+      "LocalePath": [],
+      "DataPath": []
+    },
+    {
+      "Version": "1.1.1",
+      "Released": "2024-02-20",
+      "MinSupport": "2.4.2",
+      "MaxSupport": "",
+      "MinWorking": "",
+      "MaxWorking": "",
+      "ReleaseNotes": [
+        "Updated Qt version"
+      ],
+      "DownloadUrl": "https://github.com/mihaifm/broom/releases/download/1.1.1/Broom-MO2.zip",
       "PluginPath": [
         "Broom.py"
       ],
